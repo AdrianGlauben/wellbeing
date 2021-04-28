@@ -1,5 +1,7 @@
 # Increasing Well-Being With Data Analytics
 
+- [Exercise 1 — Data Exploration](./EXERCISE-1.md)
+
 ## Syllabus
 
 - [R for Data Science](https://r4ds.had.co.nz)
@@ -69,3 +71,5 @@ This is how you can get data out of a data frame:
 4.  `mutate()`: adds new variables that are functions of existing variables
 5.  `summarise()`: reduces multiple values down to a single summary.
 6.  (and `group_by`: allows you to perform any operation “by group”.)
+
+[Let's start with exercise 1!](./EXERCISE-1.md)
