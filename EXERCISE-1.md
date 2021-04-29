@@ -72,3 +72,12 @@ starwars %>%
    select(name, mass) %>%
    na.omit()
 ```
+
+## Task 1
+
+1. Find all characters with yellow eyes.
+1. Remove all Gungans. How many characters are left?
+1. What is the average mass of all droids?
+1. Calculate the BMI for all humans (`mass / ((height / 100) ^ 2)`)
+1. Which character has the longest name?
+1. What is the earliest birth year for each species? (`birth_year` is measured in BBY = Before Battle of Yavin, so high values = earlier)
