@@ -101,7 +101,7 @@ starwars %>%
 
 ```R
 > starwars %>%
-+     filter(species != 'Gungang')
++     filter(species != 'Gungan')
 # A tibble: 83 x 14
 ```
 
@@ -194,3 +194,12 @@ starwars %>%
 14 Yoda's species               896
 15 Zabrak                        54
 ```
+
+## Task 2
+
+1. What are the most populated planets?
+1. What is the average height of all female humans?
+1. Which planet has the most droids?
+1. Who is the oldest character of each species?
+1. Which is the most prevelant eye color on each planet?
+1. How many unique eye colors are there?
