@@ -198,8 +198,136 @@ starwars %>%
 ## Task 2
 
 1. What are the most populated planets?
-1. What is the average height of all female humans?
-1. Which planet has the most droids?
-1. Who is the oldest character of each species?
-1. Which is the most prevelant eye color on each planet?
-1. How many unique eye colors are there?
+
+```R
+> starwars %>%
++     group_by(homeworld) %>%
++     summarise(n = n()) %>%
++     arrange(desc(n))
+# A tibble: 49 x 2
+   homeworld     n
+   <chr>     <int>
+ 1 Naboo        11
+ 2 Tatooine     10
+ 3 NA           10
+ 4 Alderaan      3
+ 5 Coruscant     3
+ 6 Kamino        3
+ 7 Corellia      2
+ 8 Kashyyyk      2
+ 9 Mirial        2
+10 Ryloth        2
+# … with 39 more rows
+```
+
+2. What is the average height of all female humans?
+
+```R
+> starwars %>%
++     select(name, height, gender, species) %>%
++     filter(species == 'Human', gender == 'feminine') %>%
++     na.omit() %>%
++     summarise(mean(height))
+# A tibble: 1 x 1
+  `mean(height)`
+           <dbl>
+1           160.
+```
+
+3. Which planet has the most droids?
+
+```R
+> starwars %>%
++     filter(species == 'Droid') %>%
++     group_by(homeworld) %>%
++     summarise(n = n()) %>%
++     arrange(desc(n))
+# A tibble: 3 x 2
+  homeworld     n
+  <chr>     <int>
+1 NA            3
+2 Tatooine      2
+3 Naboo         1
+```
+
+4. Who is the oldest character of each species?
+
+```R
+> starwars %>%
++     filter(!is.na(birth_year)) %>%
++     filter(!is.na(species)) %>%
++     group_by(species, name) %>%
++     summarise(by = max(birth_year)) %>%
++     group_by(species) %>%
++     slice(which.max(by))
+`summarise()` has grouped output by 'species'. You can override using the `.groups` argument.
+# A tibble: 15 x 3
+# Groups:   species [15]
+   species        name                     by
+   <chr>          <chr>                 <dbl>
+ 1 Cerean         Ki-Adi-Mundi             92
+ 2 Droid          C-3PO                   112
+ 3 Ewok           Wicket Systri Warrick     8
+ 4 Gungan         Jar Jar Binks            52
+ 5 Human          Dooku                   102
+ 6 Hutt           Jabba Desilijic Tiure   600
+ 7 Kel Dor        Plo Koon                 22
+ 8 Mirialan       Luminara Unduli          58
+ 9 Mon Calamari   Ackbar                   41
+10 Rodian         Greedo                   44
+11 Trandoshan     Bossk                    53
+12 Twi'lek        Ayla Secura              48
+13 Wookiee        Chewbacca               200
+14 Yoda's species Yoda                    896
+15 Zabrak         Darth Maul               54
+```
+
+5. Which is the most prevalent eye color on each planet?
+
+```R
+> starwars %>% 
++       group_by(homeworld, eye_color) %>% 
++       mutate(rank = row_number()) %>% 
++       group_by(homeworld) %>% 
++       slice(which.max(rank)) %>% 
++       summarise(homeworld, eye_color, rank)
+# A tibble: 49 x 3
+   homeworld      eye_color  rank
+   <chr>          <chr>     <int>
+ 1 Alderaan       brown         3
+ 2 Aleen Minor    unknown       1
+ 3 Bespin         blue          1
+ 4 Bestine IV     blue          1
+ 5 Cato Neimoidia red           1
+ 6 Cerea          yellow        1
+ 7 Champala       blue          1
+ 8 Chandrila      blue          1
+ 9 Concord Dawn   brown         1
+10 Corellia       brown         1
+```
+
+6. How many unique eye colors are there?
+
+```R
+> starwars %>% 
++       summarise(eye_color) %>% 
++       distinct(eye_color)
+# A tibble: 15 x 1
+   eye_color    
+   <chr>        
+ 1 blue         
+ 2 yellow       
+ 3 red          
+ 4 brown        
+ 5 blue-gray    
+ 6 black        
+ 7 orange       
+ 8 hazel        
+ 9 pink         
+10 unknown      
+11 red, blue    
+12 gold         
+13 green, yellow
+14 white        
+15 dark         
+```
