@@ -5,7 +5,7 @@
 ## Syllabus
 
 - [R for Data Science](https://r4ds.had.co.nz)
-- [Cheatsheet "Daten bändigen mit R"](../wellbeing/Schummelzettel%20–%20dplyr%20und%20tidyr.pdf)
+- [Cheatsheet "Daten bändigen mit R"](./Schummelzettel%20–%20dplyr%20und%20tidyr.pdf)
 
 ## Helpful links
 
