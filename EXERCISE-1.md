@@ -76,8 +76,121 @@ starwars %>%
 ## Task 1
 
 1. Find all characters with yellow eyes.
-1. Remove all Gungans. How many characters are left?
-1. What is the average mass of all droids?
-1. Calculate the BMI for all humans (`mass / ((height / 100) ^ 2)`)
-1. Which character has the longest name?
-1. What is the earliest birth year for each species? (`birth_year` is measured in BBY = Before Battle of Yavin, so high values = earlier)
+
+```R
+> starwars %>%
++     select(name, eye_color) %>%
++     filter(eye_color == 'yellow')
+# A tibble: 11 x 2
+   name              eye_color
+   <chr>             <chr>
+ 1 C-3PO             yellow
+ 2 Darth Vader       yellow
+ 3 Palpatine         yellow
+ 4 Watto             yellow
+ 5 Darth Maul        yellow
+ 6 Dud Bolt          yellow
+ 7 Ki-Adi-Mundi      yellow
+ 8 Yarael Poof       yellow
+ 9 Poggle the Lesser yellow
+10 Zam Wesell        yellow
+11 Dexter Jettster   yellow
+```
+
+2. Remove all Gungans. How many characters are left?
+
+```R
+> starwars %>%
++     filter(species != 'Gungang')
+# A tibble: 83 x 14
+```
+
+3. What is the average mass of all droids?
+
+```R
+> starwars %>%
++     select(name, species, mass) %>%
++     filter(species == 'Droid') %>%
++     na.omit() %>%
++     summarise(mean(mass))
+# A tibble: 1 x 1
+  `mean(mass)`
+         <dbl>
+1         69.8
+```
+
+4. Calculate the BMI for all humans (`mass / ((height / 100) ^ 2)`)
+
+```R
+> starwars %>%
++     select(name, mass, height, species) %>%
++     filter(species == 'Human') %>%
++     filter(!is.na(mass)) %>%
++     filter(!is.na(height)) %>%
++     mutate(bmi = (mass / ((height / 100) ^ 2)))
+# A tibble: 22 x 5
+   name                mass height species   bmi
+   <chr>              <dbl>  <int> <chr>   <dbl>
+ 1 Luke Skywalker        77    172 Human    26.0
+ 2 Darth Vader          136    202 Human    33.3
+ 3 Leia Organa           49    150 Human    21.8
+ 4 Owen Lars            120    178 Human    37.9
+ 5 Beru Whitesun lars    75    165 Human    27.5
+ 6 Biggs Darklighter     84    183 Human    25.1
+ 7 Obi-Wan Kenobi        77    182 Human    23.2
+ 8 Anakin Skywalker      84    188 Human    23.8
+ 9 Han Solo              80    180 Human    24.7
+10 Wedge Antilles        77    170 Human    26.6
+# … with 12 more rows
+```
+
+5. Which character has the longest name?
+
+```R
+> starwars %>%
++     select(name) %>%
++     arrange(desc(str_length(name)))
+# A tibble: 87 x 1
+   name
+   <chr>
+ 1 Jabba Desilijic Tiure
+ 2 Wicket Systri Warrick
+ 3 Bail Prestor Organa
+ 4 Beru Whitesun lars
+ 5 Biggs Darklighter
+ 6 Poggle the Lesser
+ 7 Anakin Skywalker
+ 8 Jek Tono Porkins
+ 9 Lando Calrissian
+10 Luminara Unduli
+# … with 77 more rows
+```
+
+6. What is the earliest birth year for each species? (`birth_year` is measured in BBY = Before Battle of Yavin, so high values = earlier)
+
+```R
+> starwars %>%
++     filter(!is.na(birth_year)) %>%
++     filter(!is.na(species)) %>%
++     group_by(species) %>%
++     arrange(birth_year) %>%
++     summarise(max(birth_year))
+# A tibble: 15 x 2
+   species        `max(birth_year)`
+   <chr>                      <dbl>
+ 1 Cerean                        92
+ 2 Droid                        112
+ 3 Ewok                           8
+ 4 Gungan                        52
+ 5 Human                        102
+ 6 Hutt                         600
+ 7 Kel Dor                       22
+ 8 Mirialan                      58
+ 9 Mon Calamari                  41
+10 Rodian                        44
+11 Trandoshan                    53
+12 Twi'lek                       48
+13 Wookiee                      200
+14 Yoda's species               896
+15 Zabrak                        54
+```
