@@ -1,8 +1,7 @@
 # Exercise 1 — Data Exploration
 
-:house_with_garden: [Home](./README.md)
-
-:open_book: [`dplyr` documentation](https://dplyr.tidyverse.org/reference/index.html)
+- :house_with_garden: [Home](./README.md)
+- :open_book: [`dplyr` documentation](https://dplyr.tidyverse.org/reference/index.html)
 
 ## Preparation
 
@@ -285,11 +284,11 @@ starwars %>%
 5. Which is the most prevalent eye color on each planet?
 
 ```R
-> starwars %>% 
-+       group_by(homeworld, eye_color) %>% 
-+       mutate(rank = row_number()) %>% 
-+       group_by(homeworld) %>% 
-+       slice(which.max(rank)) %>% 
+> starwars %>%
++       group_by(homeworld, eye_color) %>%
++       mutate(rank = row_number()) %>%
++       group_by(homeworld) %>%
++       slice(which.max(rank)) %>%
 +       summarise(homeworld, eye_color, rank)
 # A tibble: 49 x 3
    homeworld      eye_color  rank
@@ -309,25 +308,27 @@ starwars %>%
 6. How many unique eye colors are there?
 
 ```R
-> starwars %>% 
-+       summarise(eye_color) %>% 
+> starwars %>%
++       summarise(eye_color) %>%
 +       distinct(eye_color)
 # A tibble: 15 x 1
-   eye_color    
-   <chr>        
- 1 blue         
- 2 yellow       
- 3 red          
- 4 brown        
- 5 blue-gray    
- 6 black        
- 7 orange       
- 8 hazel        
- 9 pink         
-10 unknown      
-11 red, blue    
-12 gold         
+   eye_color
+   <chr>
+ 1 blue
+ 2 yellow
+ 3 red
+ 4 brown
+ 5 blue-gray
+ 6 black
+ 7 orange
+ 8 hazel
+ 9 pink
+10 unknown
+11 red, blue
+12 gold
 13 green, yellow
-14 white        
-15 dark         
+14 white
+15 dark
 ```
+
+[Let's continue with exercise 2!](./EXERCISE-2.md)

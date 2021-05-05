@@ -1,6 +1,7 @@
 # Increasing Well-Being With Data Analytics
 
 - [Exercise 1 — Data Exploration](./EXERCISE-1.md)
+- [Exercise 2 — Data Curation](./EXERCISE-2.md)
 
 ## Syllabus
 
